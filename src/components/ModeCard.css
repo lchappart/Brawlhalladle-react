@@ -1,0 +1,124 @@
+/* Cartes mode — style Matchs Amicaux (sans portrait) */
+
+.mode-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  padding: 0;
+  text-decoration: none;
+  overflow: hidden;
+  background: var(--bh-pink);
+  border: var(--bh-stroke) solid var(--bh-outline);
+  box-shadow: var(--bh-shadow-panel);
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1),
+    box-shadow 0.2s ease;
+}
+
+.mode-card__header {
+  flex: 1;
+  min-height: 5.5rem;
+  background: var(--bh-pink);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(0, 0, 0, 0.08) 8px,
+    rgba(0, 0, 0, 0.08) 10px
+  );
+  border-bottom: var(--bh-stroke-sm) solid var(--bh-outline);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), 0 100%);
+}
+
+.mode-card__pattern {
+  display: none;
+}
+
+.mode-card--cyan .mode-card__header {
+  background-color: #00d4aa;
+}
+
+.mode-card--featured {
+  z-index: 2;
+  transform: scale(1.04) rotate(-2deg);
+  box-shadow:
+    0 0 0 4px var(--bh-cyan),
+    0 8px 0 var(--bh-outline),
+    0 0 28px var(--bh-cyan-glow);
+}
+
+.mode-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 10px 0 var(--bh-outline),
+    0 0 24px rgba(255, 45, 138, 0.45);
+}
+
+.mode-card--featured:hover {
+  transform: scale(1.06) rotate(-2deg) translateY(-4px);
+}
+
+.mode-card:focus-visible {
+  outline: 4px solid var(--bh-gold);
+  outline-offset: 4px;
+}
+
+.mode-card__footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: #72d9d3;
+  border-top: none;
+}
+
+.mode-card--featured .mode-card__footer {
+  background: #72d9d3;
+}
+
+.mode-card__title {
+  margin: 0;
+  padding: 0.65rem 0.85rem 0.35rem;
+  font-family: var(--bh-font-menu);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bh-white);
+  text-shadow: 2px 2px 0 var(--bh-outline);
+  background: transparent;
+}
+
+.mode-card__description {
+  margin: 0;
+  padding: 0 0.85rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--bh-white);
+  text-shadow: 1px 1px 0 var(--bh-outline);
+}
+
+.mode-card__play {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  color: var(--bh-ink);
+  text-shadow: none;
+  background: linear-gradient(180deg, var(--bh-gold-hi), var(--bh-gold));
+  background-image: linear-gradient(180deg, var(--bh-gold-hi), var(--bh-gold));
+  border: none;
+  border-top: var(--bh-stroke-sm) solid var(--bh-outline);
+  border-radius: 0;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.mode-card:hover .mode-card__play {
+  transform: none;
+  filter: brightness(1.05);
+}

@@ -1,0 +1,272 @@
+/* Shell global — DA Brawlhalla (Mallhalla + Matchs Amicaux) */
+
+.bh-app {
+  position: relative;
+  min-height: 100svh;
+  overflow-x: hidden;
+  background: linear-gradient(
+    160deg,
+    var(--bh-bg-mid) 0%,
+    var(--bh-bg-deep) 45%,
+    #061a52 100%
+  );
+}
+
+.bh-app__watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  margin: 0;
+  font-family: var(--bh-font-display);
+  font-size: clamp(3rem, 14vw, 9rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.06);
+  transform: translate(-50%, -50%) rotate(-4deg);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.bh-app__lightning {
+  position: fixed;
+  z-index: 0;
+  width: min(42vw, 320px);
+  height: min(32vw, 240px);
+  opacity: 0.92;
+  pointer-events: none;
+  background: var(--bh-lightning);
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 12px rgba(255, 45, 138, 0.35));
+}
+
+.bh-app__lightning--tl {
+  top: 4.5rem;
+  left: -4%;
+  transform: rotate(-8deg) scaleX(-1);
+}
+
+.bh-app__lightning--br {
+  right: -3%;
+  bottom: 2rem;
+  transform: rotate(12deg);
+}
+
+/* En-tête — barre profil inclinée */
+.bh-app__header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1rem 0.5rem;
+  flex-wrap: wrap;
+}
+
+.bh-app__logo {
+  text-decoration: none;
+  filter: drop-shadow(0 0 18px var(--bh-cyan-glow));
+}
+
+.bh-app__status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.4rem;
+  background: rgba(8, 18, 48, 0.88);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
+  transform: skewX(-8deg);
+}
+
+.bh-app__avatar,
+.bh-app__status-text {
+  transform: skewX(8deg);
+}
+
+.bh-app__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  font-family: var(--bh-font-display);
+  font-size: 0.8rem;
+  color: var(--bh-ink);
+  background: linear-gradient(180deg, var(--bh-gold-hi), var(--bh-gold));
+  border: 2px solid var(--bh-outline);
+}
+
+.bh-app__status-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  min-width: 0;
+}
+
+.bh-app__username {
+  font-family: var(--bh-font-menu);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--bh-white);
+  text-shadow: 1px 1px 0 var(--bh-outline);
+}
+
+.bh-app__level {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--bh-text-muted);
+  line-height: 1.25;
+  max-width: 16rem;
+}
+
+/* Grille principale */
+.bh-app__body {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(168px, 200px) 1fr minmax(180px, 220px);
+  gap: 0.85rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 0.85rem 1.75rem;
+  min-height: calc(100svh - 5.5rem);
+}
+
+.bh-app__body--home {
+  grid-template-columns: minmax(168px, 200px) 1fr;
+}
+
+.bh-app__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.25rem;
+}
+
+.bh-app__sidebar-label {
+  display: block;
+  width: 100%;
+  padding: 0.4rem 0.65rem;
+  font-family: var(--bh-font-menu);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  transform: skewX(var(--bh-skew));
+}
+
+.bh-app__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.bh-app__main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+.bh-app__body--home .bh-app__main {
+  justify-content: center;
+}
+
+.bh-app__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.bh-app__info-ribbon {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  font-family: var(--bh-font-menu);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.04em;
+  transform: skewX(var(--bh-skew));
+}
+
+.bh-app__info-text {
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--bh-text);
+  background: rgba(0, 0, 0, 0.35);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  text-shadow: 1px 1px 0 var(--bh-outline);
+}
+
+.bh-app__info .api-banner {
+  margin: 0;
+  border-radius: 0;
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  background: rgba(6, 22, 72, 0.95);
+  color: var(--bh-text-muted);
+  font-size: 0.65rem;
+}
+
+.bh-app__info .api-banner strong {
+  color: var(--bh-cyan);
+}
+
+@media (max-width: 960px) {
+  .bh-app__body,
+  .bh-app__body--home {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .bh-app__sidebar {
+    order: 1;
+  }
+
+  .bh-app__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .bh-app__nav .bh-nav-btn {
+    flex: 1 1 calc(50% - 0.25rem);
+    min-width: 8rem;
+    text-align: center;
+    font-size: 0.78rem;
+    padding: 0.55rem 0.5rem;
+  }
+
+  .bh-app__nav .bh-nav-btn > span {
+    text-align: center;
+  }
+
+  .bh-app__sidebar-label {
+    width: 100%;
+  }
+
+  .bh-app__main {
+    order: 2;
+  }
+
+  .bh-app__info {
+    order: 3;
+  }
+
+  .bh-app__lightning {
+    opacity: 0.5;
+  }
+}

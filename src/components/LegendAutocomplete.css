@@ -1,0 +1,85 @@
+.legend-ac {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 380px;
+}
+
+.legend-ac__input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-family: var(--bh-font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--bh-ink);
+  background: var(--bh-cream);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  box-shadow: var(--bh-shadow-btn);
+  transform: skewX(-4deg);
+}
+
+.legend-ac__input::placeholder {
+  text-transform: none;
+  letter-spacing: normal;
+  color: #5a7a88;
+}
+
+.legend-ac__input:focus {
+  outline: 3px solid var(--bh-cyan);
+  outline-offset: 2px;
+}
+
+.legend-ac__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.legend-ac__list {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  background: var(--bh-teal);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  box-shadow: 0 6px 0 var(--bh-outline);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.legend-ac__option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  font: inherit;
+  text-align: left;
+  color: #fff;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.legend-ac__option:hover,
+.legend-ac__option.is-active {
+  background: rgba(0, 229, 255, 0.2);
+}
+
+.legend-ac__name {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.legend-ac__weapons {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #8ecae6;
+}

@@ -1,0 +1,113 @@
+.classic-hints {
+  width: 100%;
+  max-width: 520px;
+  padding: 0.85rem 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  box-shadow: var(--bh-shadow-btn);
+}
+
+.classic-hints__title {
+  margin: 0 0 0.65rem;
+  font-family: var(--mh-font-menu);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bh-gold);
+  text-shadow: 1px 1px 0 #000;
+}
+
+.classic-hints__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.classic-hints__item {
+  padding: 0.5rem 0.65rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.classic-hints__item--available {
+  background: rgba(0, 229, 255, 0.08);
+  border-color: rgba(0, 229, 255, 0.35);
+}
+
+.classic-hints__item--revealed {
+  background: rgba(61, 214, 107, 0.1);
+  border-color: rgba(61, 214, 107, 0.4);
+}
+
+.classic-hints__label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bh-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.classic-hints__item--available .classic-hints__label,
+.classic-hints__item--revealed .classic-hints__label {
+  color: var(--bh-cyan);
+}
+
+.classic-hints__reveal {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--bh-gold-hi);
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--bh-cyan);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.classic-hints__reveal:hover {
+  background: rgba(0, 229, 255, 0.12);
+  border-color: var(--bh-cyan);
+}
+
+.classic-hints__reveal:focus-visible {
+  outline: 2px solid var(--bh-gold);
+  outline-offset: 2px;
+}
+
+.classic-hints__content {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--mh-text);
+  font-style: italic;
+}
+
+.classic-hints__item:first-child .classic-hints__content {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--bh-gold-hi);
+}
+
+.classic-hints__locked {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.classic-hints__loading,
+.classic-hints__missing {
+  font-style: normal;
+  color: var(--bh-text-muted);
+}

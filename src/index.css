@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Titan+One&display=swap');
+@import './styles/bh-theme.css';
+@import './components/AppLayout.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--bh-font-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--bh-text);
+  background: var(--bh-bg-deep);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+a {
+  color: inherit;
+}

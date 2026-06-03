@@ -1,0 +1,32 @@
+.api-banner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--bh-text);
+  text-shadow: 1px 1px 0 var(--bh-outline);
+  background: rgba(0, 0, 0, 0.35);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+}
+
+.api-banner--loading {
+  color: var(--bh-cream);
+}
+
+.api-banner--error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 107, 26, 0.2);
+  border-color: var(--bh-orange);
+}
+
+.api-banner strong {
+  color: var(--bh-cyan);
+}

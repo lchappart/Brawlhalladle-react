@@ -1,0 +1,60 @@
+.game-shell {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.game-shell__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+  min-height: 2.5rem;
+}
+
+.game-shell__back {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--bh-ink);
+  text-decoration: none;
+  background: var(--bh-white);
+  border: var(--bh-stroke-sm) solid var(--bh-outline);
+  box-shadow: 0 4px 0 var(--bh-outline);
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%, 0 18%);
+  transition: transform 0.1s ease;
+}
+
+.game-shell__back:hover {
+  transform: translateY(-50%) translateX(-2px);
+  filter: brightness(1.05);
+}
+
+.game-shell__back:focus-visible {
+  outline: 3px solid var(--bh-cyan);
+  outline-offset: 2px;
+}
+
+.game-shell__title {
+  margin: 0;
+  flex: 1;
+}
+
+.game-shell__content {
+  max-width: 100%;
+}
+
+.game-shell__content.bh-frame > * {
+  position: relative;
+  z-index: 1;
+}

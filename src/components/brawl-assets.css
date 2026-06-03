@@ -1,0 +1,152 @@
+.bh-portrait {
+  display: block;
+  object-fit: contain;
+  object-position: center bottom;
+  flex-shrink: 0;
+}
+
+.bh-portrait--sm {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.bh-portrait--md {
+  width: 4.5rem;
+  height: 4.75rem;
+}
+
+.bh-portrait--lg {
+  width: min(360px, 78vw);
+  height: auto;
+  max-height: 420px;
+}
+
+.bh-portrait--placeholder {
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid #000;
+  font-family: var(--mh-font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--bh-text-muted);
+  text-transform: uppercase;
+}
+
+.bh-weapon-icon {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.bh-weapon-icon--xs {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.bh-weapon-icon--sm {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.bh-weapon-icon--md {
+  width: 3rem;
+  height: 3rem;
+}
+
+.bh-weapon-icon--lg {
+  width: 3.75rem;
+  height: 3.75rem;
+}
+
+.bh-weapon-kit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.bh-weapon-kit--labeled {
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.bh-weapon-label-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.bh-weapon-label-wrap__text {
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.brawldoku__weapon-label .bh-weapon-label-wrap__text {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
+.cell--name-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-content: flex-start;
+}
+
+.cell--name-inner .bh-portrait--sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.brawldoku__cell-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.brawldoku__cell-inner .bh-portrait--sm {
+  width: 3rem;
+  height: 3rem;
+}
+
+.legend-ac__option-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.legend-ac__option-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.legend-ac__weapons-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.classic-hints__weapon-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.game-result__portrait {
+  margin: 0.5rem auto 0;
+}
+
+.game-result__portrait.bh-portrait--lg {
+  width: min(200px, 50vw);
+  max-height: 220px;
+}
