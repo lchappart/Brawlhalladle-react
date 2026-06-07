@@ -59,9 +59,15 @@
     inset 0 0 0 2px rgba(0, 229, 255, 0.25),
     0 8px 0 var(--bh-outline),
     0 12px 26px rgba(0, 0, 0, 0.5);
-  max-height: 300px;
+  max-height: min(300px, 50vh);
   overflow-y: auto;
   animation: bh-rise 0.18s ease both;
+}
+
+.legend-ac__list--portal {
+  position: fixed;
+  z-index: 1000;
+  right: auto;
 }
 
 .legend-ac__option {

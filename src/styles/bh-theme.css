@@ -395,6 +395,7 @@
 /* Panneaux de jeu — cadre Mallhalla avec coins dorés */
 .bh-frame {
   position: relative;
+  overflow: visible;
   width: 100%;
   max-width: 760px;
   padding: 1.25rem 1.35rem 1.5rem;
@@ -406,14 +407,6 @@
     inset 0 0 0 2px rgba(0, 229, 255, 0.18),
     inset 0 0 36px rgba(0, 229, 255, 0.06),
     var(--bh-shadow-panel);
-  clip-path: polygon(
-    14px 0,
-    100% 0,
-    100% calc(100% - 14px),
-    calc(100% - 14px) 100%,
-    0 100%,
-    0 14px
-  );
 }
 
 .bh-frame::before,

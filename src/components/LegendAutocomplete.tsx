@@ -1,4 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import type { Legend } from '../api/types'
 import { legendMatchesQuery, normalizeName } from '../utils/legendGame'
 import { LegendPortrait } from './LegendPortrait'
@@ -19,6 +20,12 @@ type LegendAutocompleteProps = {
 
 const MAX_SUGGESTIONS = 8
 
+type ListPosition = {
+  top: number
+  left: number
+  width: number
+}
+
 export function LegendAutocomplete({
   legends,
   value,
@@ -31,7 +38,9 @@ export function LegendAutocomplete({
   const listId = useId()
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [listPosition, setListPosition] = useState<ListPosition | null>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
 
   const excludedIds = useMemo(
     () => new Set(excludedLegendIds),
@@ -50,13 +59,44 @@ export function LegendAutocomplete({
       .slice(0, MAX_SUGGESTIONS)
   }, [selectableLegends, value])
 
+  const showList = open && suggestions.length > 0
+
   useEffect(() => {
     setActiveIndex(0)
   }, [suggestions])
 
   useEffect(() => {
+    if (!showList || !wrapperRef.current) {
+      setListPosition(null)
+      return
+    }
+
+    function updatePosition() {
+      const el = wrapperRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      setListPosition({
+        top: rect.bottom + 4,
+        left: rect.left,
+        width: rect.width,
+      })
+    }
+
+    updatePosition()
+    window.addEventListener('resize', updatePosition)
+    window.addEventListener('scroll', updatePosition, true)
+    return () => {
+      window.removeEventListener('resize', updatePosition)
+      window.removeEventListener('scroll', updatePosition, true)
+    }
+  }, [showList, value, suggestions.length])
+
+  useEffect(() => {
     function onDocClick(e: MouseEvent) {
-      if (!wrapperRef.current?.contains(e.target as Node)) setOpen(false)
+      const target = e.target as Node
+      if (wrapperRef.current?.contains(target)) return
+      if (listRef.current?.contains(target)) return
+      setOpen(false)
     }
     document.addEventListener('mousedown', onDocClick)
     return () => document.removeEventListener('mousedown', onDocClick)
@@ -79,6 +119,49 @@ export function LegendAutocomplete({
     if (suggestions[activeIndex]) pick(suggestions[activeIndex]!)
   }
 
+  const list = showList && listPosition && (
+    <ul
+      ref={listRef}
+      className="legend-ac__list legend-ac__list--portal"
+      id={listId}
+      role="listbox"
+      style={{
+        top: listPosition.top,
+        left: listPosition.left,
+        width: listPosition.width,
+      }}
+    >
+      {suggestions.map((legend, i) => (
+        <li key={legend.legend_id}>
+          <button
+            type="button"
+            role="option"
+            aria-selected={i === activeIndex}
+            className={
+              i === activeIndex ? 'legend-ac__option is-active' : 'legend-ac__option'
+            }
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => pick(legend)}
+          >
+            <span className="legend-ac__option-inner">
+              <LegendPortrait
+                legendNameKey={legend.legend_name_key}
+                bioName={legend.bio_name}
+                size="md"
+              />
+              <span className="legend-ac__option-text">
+                <span className="legend-ac__name">{legend.bio_name}</span>
+                <span className="legend-ac__weapons legend-ac__weapons-row">
+                  <WeaponKit legend={legend} size="sm" />
+                </span>
+              </span>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+
   return (
     <div className="legend-ac" ref={wrapperRef}>
       <input
@@ -88,7 +171,7 @@ export function LegendAutocomplete({
         disabled={disabled}
         placeholder={placeholder}
         autoComplete="off"
-        aria-expanded={open && suggestions.length > 0}
+        aria-expanded={showList}
         aria-controls={listId}
         aria-autocomplete="list"
         onChange={(e) => {
@@ -111,38 +194,7 @@ export function LegendAutocomplete({
           }
         }}
       />
-      {open && suggestions.length > 0 && (
-        <ul className="legend-ac__list" id={listId} role="listbox">
-          {suggestions.map((legend, i) => (
-            <li key={legend.legend_id}>
-              <button
-                type="button"
-                role="option"
-                aria-selected={i === activeIndex}
-                className={
-                  i === activeIndex ? 'legend-ac__option is-active' : 'legend-ac__option'
-                }
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => pick(legend)}
-              >
-                <span className="legend-ac__option-inner">
-                  <LegendPortrait
-                    legendNameKey={legend.legend_name_key}
-                    bioName={legend.bio_name}
-                    size="md"
-                  />
-                  <span className="legend-ac__option-text">
-                    <span className="legend-ac__name">{legend.bio_name}</span>
-                    <span className="legend-ac__weapons legend-ac__weapons-row">
-                      <WeaponKit legend={legend} size="sm" />
-                    </span>
-                  </span>
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {list && createPortal(list, document.body)}
     </div>
   )
 }

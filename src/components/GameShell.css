@@ -52,6 +52,7 @@
 
 .game-shell__content {
   max-width: 100%;
+  overflow: visible;
 }
 
 .game-shell__content.bh-frame > * {
