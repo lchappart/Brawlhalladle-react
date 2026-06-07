@@ -13,7 +13,6 @@ Jeu de devinettes inspiré de Wordle, basé sur les légendes **Brawlhalla** (AP
 - **Classique** — légende du jour avec indices (stats, arme, surnom, citation)
 - **Illimité** — parties classiques enchaînées
 - **Brawldoku** — grille armes × légendes (quotidien et illimité)
-- **Legend Stat** — devine une stat mystère
 
 ## Installation
 

@@ -5,7 +5,6 @@ import { HomePage } from './pages/HomePage'
 import { ClassicPage } from './pages/ClassicPage'
 import { BrawldokuPage } from './pages/BrawldokuPage'
 import { BrawldokuUnlimitedPage } from './pages/BrawldokuUnlimitedPage'
-import { LegendStatPage } from './pages/LegendStatPage'
 import { UnlimitedPage } from './pages/UnlimitedPage'
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
             <Route path="/unlimited" element={<UnlimitedPage />} />
             <Route path="/brawldoku" element={<BrawldokuPage />} />
             <Route path="/brawldoku-unlimited" element={<BrawldokuUnlimitedPage />} />
-            <Route path="/legend-stat" element={<LegendStatPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

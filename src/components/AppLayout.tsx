@@ -1,6 +1,4 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ApiBanner } from './ApiBanner'
-import { useLegends } from '../context/LegendsContext'
 import { getDayKey } from '../utils/daily'
 import './AppLayout.css'
 
@@ -10,17 +8,17 @@ const NAV_ITEMS = [
   { to: '/unlimited', label: 'Illimité' },
   { to: '/brawldoku', label: 'Brawldoku' },
   { to: '/brawldoku-unlimited', label: 'Brawldoku ∞' },
-  { to: '/legend-stat', label: 'Legend Stat' },
 ] as const
 
 export function AppLayout() {
   const location = useLocation()
   const isHome = location.pathname === '/'
-  const dayKey = getDayKey()
-  const { quota, fromCache } = useLegends()
 
   return (
     <div className="bh-app">
+      <div className="bh-app__sky" aria-hidden />
+      <div className="bh-app__rays" aria-hidden />
+      <div className="bh-app__grain" aria-hidden />
       <div className="bh-app__lightning bh-app__lightning--tl" aria-hidden />
       <div className="bh-app__lightning bh-app__lightning--br" aria-hidden />
       <p className="bh-app__watermark" aria-hidden>
@@ -35,21 +33,18 @@ export function AppLayout() {
           </span>
         </NavLink>
 
-        <div className="bh-app__status-bar">
-          <div className="bh-app__avatar" aria-hidden>
-            BH
-          </div>
-          <div className="bh-app__status-text">
-            <span className="bh-app__username">Joueur</span>
-            <span className="bh-app__level">
-              Défi {dayKey} · API {quota.remaining}/{quota.max}
-              {fromCache ? ' · cache' : ''}
-            </span>
-          </div>
+        <div className="bh-app__daily" aria-label={`Défi du jour ${getDayKey()}`}>
+          <span className="bh-app__daily-icon" aria-hidden>
+            ⚡
+          </span>
+          <span className="bh-app__daily-text">
+            <span className="bh-app__daily-label">Défi du jour</span>
+            <span className="bh-app__daily-date">{getDayKey()}</span>
+          </span>
         </div>
       </header>
 
-      <div className={`bh-app__body${isHome ? ' bh-app__body--home' : ''}`}>
+      <div className="bh-app__body">
         <aside className="bh-app__sidebar" aria-label="Navigation des modes">
           <div className="bh-ribbon bh-app__sidebar-label">Modes</div>
           <nav className="bh-app__nav">
@@ -68,24 +63,9 @@ export function AppLayout() {
           </nav>
         </aside>
 
-        <main className="bh-app__main">
+        <main className={`bh-app__main${isHome ? ' bh-app__main--home' : ''}`}>
           <Outlet />
         </main>
-
-        {!isHome && (
-          <aside className="bh-app__info" aria-label="Informations">
-            <div className="bh-ribbon bh-app__info-ribbon">
-              Défi du jour — {dayKey}
-            </div>
-            <p className="bh-app__info-text">
-              Devine les légendes via l&apos;API officielle Brawlhalla
-            </p>
-            <div className="bh-ribbon bh-ribbon--green bh-app__info-ribbon">
-              Données · cache 24h
-            </div>
-            <ApiBanner />
-          </aside>
-        )}
       </div>
     </div>
   )

@@ -4,12 +4,23 @@
 }
 
 .mode-hub__header {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
+.mode-hub__eyebrow {
+  margin: 0 0 0.15rem;
+  font-family: var(--bh-font-menu);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  color: var(--bh-gold-hi);
+  text-shadow: 1px 1px 0 var(--bh-outline);
+}
+
 .mode-hub__day {
-  margin: 0.35rem 0 0;
+  margin: 0.45rem 0 0;
   font-family: var(--bh-font-menu);
   font-size: 0.75rem;
   font-weight: 700;
@@ -21,27 +32,41 @@
 
 .mode-hub__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  align-items: center;
-  padding: 1rem 0.25rem 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(214px, 1fr));
+  gap: 1.15rem;
+  align-items: stretch;
+  padding: 0.75rem 0.25rem 0.5rem;
+}
+
+/* Décalage de l'animation d'entrée par carte */
+.mode-hub__grid > :nth-child(1) {
+  animation-delay: 0.04s;
+}
+.mode-hub__grid > :nth-child(2) {
+  animation-delay: 0.12s;
+}
+.mode-hub__grid > :nth-child(3) {
+  animation-delay: 0.2s;
+}
+.mode-hub__grid > :nth-child(4) {
+  animation-delay: 0.28s;
 }
 
 @media (max-width: 1100px) {
   .mode-hub__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem 0.85rem;
+    gap: 1.25rem 0.95rem;
   }
 }
 
 @media (max-width: 520px) {
   .mode-hub__grid {
     grid-template-columns: 1fr;
-    max-width: 320px;
+    max-width: 340px;
     margin: 0 auto;
   }
 
   .mode-card--featured {
-    transform: scale(1.03) rotate(-1deg);
+    transform: scale(1.02) rotate(-1deg);
   }
 }

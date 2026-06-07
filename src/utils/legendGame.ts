@@ -258,9 +258,3 @@ export function generateBrawldokuPuzzle(
 function seededPickSix(weapons: string[], seed: number): string[] {
   return seededShuffle(weapons, seed).slice(0, 6)
 }
-
-export function getLegendStatRevealOrder(dayKey = getDayKey()): StatKey[] {
-  const order = [...STAT_KEYS]
-  const start = pickDailyIndex(`legendstat-order-${dayKey}`, order.length)
-  return [...order.slice(start), ...order.slice(0, start)]
-}

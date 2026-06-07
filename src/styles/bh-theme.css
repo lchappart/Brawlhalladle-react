@@ -1,21 +1,23 @@
-/* Brawlhalla UI — tokens & composants réutilisables */
+/* Brawlhalla UI — tokens, animations & composants réutilisables */
 
 :root {
   --bh-font-display: 'Titan One', 'Arial Black', sans-serif;
   --bh-font-menu: 'Oswald', 'Arial Narrow', sans-serif;
   --bh-font-body: 'Oswald', system-ui, sans-serif;
 
-  /* Fonds — bleu Mallhalla / menu Matchs Amicaux */
-  --bh-bg-deep: #0a2d8a;
-  --bh-bg-mid: #1248b5;
-  --bh-bg-panel: rgba(6, 22, 72, 0.92);
+  /* Fonds — ciel Valhalla / menu Mallhalla */
+  --bh-bg-deep: #061a52;
+  --bh-bg-mid: #1b5bd6;
+  --bh-bg-sky: #3a8dff;
+  --bh-bg-panel: rgba(8, 26, 78, 0.92);
+  --bh-bg-panel-hi: rgba(20, 52, 130, 0.95);
 
   --bh-ink: #0a1628;
-  --bh-text: #e8f6ff;
-  --bh-text-muted: #8eb8e8;
+  --bh-text: #eaf6ff;
+  --bh-text-muted: #9cc4f0;
 
   --bh-gold: #ffcd00;
-  --bh-gold-hi: #fff06a;
+  --bh-gold-hi: #fff39a;
   --bh-gold-dark: #c99400;
   --bh-gold-shadow: #8a6200;
 
@@ -27,16 +29,19 @@
   --bh-cyan: #00e5ff;
   --bh-cyan-glow: rgba(0, 229, 255, 0.55);
   --bh-teal: #0f4a56;
-  --bh-teal-hi: #156070;
+  --bh-teal-hi: #1e7d8f;
+  --bh-teal-lo: #0a3540;
   --bh-teal-pattern: #126675;
 
   --bh-pink: #ff2d8a;
   --bh-pink-deep: #d4186e;
   --bh-magenta: #e040ff;
+  --bh-violet: #8b5cf6;
+  --bh-violet-deep: #5b2bd6;
 
   --bh-white: #ffffff;
   --bh-cream: #fffef5;
-  --bh-outline: #000000;
+  --bh-outline: #050912;
   --bh-outline-dark: #0a2030;
 
   --bh-ok: #3dd66b;
@@ -48,9 +53,10 @@
 
   --bh-stroke: 4px;
   --bh-stroke-sm: 3px;
-  --bh-skew: -14deg;
+  --bh-skew: -10deg;
   --bh-shadow-btn: 0 5px 0 var(--bh-outline);
-  --bh-shadow-panel: 0 6px 0 var(--bh-outline);
+  --bh-shadow-panel: 0 8px 0 var(--bh-outline), 0 14px 30px rgba(0, 0, 0, 0.45);
+  --bh-radius: 4px;
 
   --bh-lightning: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 80'%3E%3Cpath d='M10 70 L35 5 L50 45 L75 10 L95 55 L110 25 L115 75 Z' fill='%23ffffff'/%3E%3C/svg%3E");
 
@@ -61,6 +67,81 @@
   --mh-text: var(--bh-text);
   --mh-ink: var(--bh-ink);
   --mh-panel-bg: var(--bh-bg-panel);
+}
+
+/* ——————————————————— Animations ——————————————————— */
+@keyframes bh-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bh-shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  60%,
+  100% {
+    background-position: 250% 0;
+  }
+}
+
+@keyframes bh-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes bh-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    filter: drop-shadow(0 0 10px var(--bh-cyan-glow));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 22px var(--bh-cyan-glow));
+  }
+}
+
+@keyframes bh-flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  47% {
+    opacity: 0.85;
+  }
+  48% {
+    opacity: 0.25;
+  }
+  49% {
+    opacity: 0.9;
+  }
+  72% {
+    opacity: 0.9;
+  }
+  73% {
+    opacity: 0.35;
+  }
+  74% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes bh-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* —— Boutons inclinés (menu principal) —— */
@@ -79,11 +160,12 @@
 
 .bh-btn,
 .bh-menu-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  padding: 0.7rem 1.35rem;
+  padding: 0.72rem 1.5rem;
   font-family: var(--bh-font-menu);
   font-size: 0.95rem;
   font-weight: 700;
@@ -96,26 +178,31 @@
   background-color: var(--bh-teal);
   background-image:
     var(--bh-lightning),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent);
-  background-size: 55% auto, 100% 100%;
-  background-position: 120% 50%, center;
-  background-repeat: no-repeat, repeat;
+    linear-gradient(180deg, var(--bh-teal-hi) 0%, var(--bh-teal) 48%, var(--bh-teal-lo) 100%);
+  background-size: 48% auto, 100% 100%;
+  background-position: 118% 50%, center;
+  background-repeat: no-repeat, no-repeat;
   border: var(--bh-stroke-sm) solid var(--bh-outline);
-  box-shadow: var(--bh-shadow-btn);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.35),
+    var(--bh-shadow-btn);
   cursor: pointer;
-  transition: transform 0.1s ease, filter 0.1s ease;
+  transition: transform 0.1s ease, filter 0.1s ease, box-shadow 0.1s ease;
 }
 
 .bh-btn:hover,
 .bh-menu-btn:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.12);
   transform: translateY(-2px);
 }
 
 .bh-btn:active,
 .bh-menu-btn:active {
   transform: translateY(3px);
-  box-shadow: 0 2px 0 var(--bh-outline);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    0 2px 0 var(--bh-outline);
 }
 
 .bh-btn:focus-visible,
@@ -126,9 +213,10 @@
 
 /* Nav Mallhalla — boutons blancs inclinés */
 .bh-nav-btn {
+  position: relative;
   display: block;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1rem 0.75rem 1.15rem;
   font-family: var(--bh-font-menu);
   font-size: clamp(0.82rem, 2vw, 1rem);
   font-weight: 700;
@@ -137,11 +225,14 @@
   text-decoration: none;
   text-align: left;
   color: var(--bh-ink);
-  background: var(--bh-white);
+  background: linear-gradient(180deg, #ffffff 0%, #d7e6f5 100%);
   border: var(--bh-stroke-sm) solid var(--bh-outline);
-  box-shadow: var(--bh-shadow-btn);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    var(--bh-shadow-btn);
   transform: skewX(var(--bh-skew));
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  overflow: hidden;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
 }
 
 .bh-nav-btn > span {
@@ -149,17 +240,41 @@
   transform: skewX(calc(var(--bh-skew) * -1));
 }
 
+.bh-nav-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: linear-gradient(180deg, var(--bh-cyan), var(--bh-magenta));
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
 .bh-nav-btn:hover {
   transform: skewX(var(--bh-skew)) translateY(-2px);
-  box-shadow: 0 7px 0 var(--bh-outline);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    0 7px 0 var(--bh-outline);
+  filter: brightness(1.04);
+}
+
+.bh-nav-btn:hover::before {
+  opacity: 1;
 }
 
 .bh-nav-btn--active {
   color: var(--bh-white);
-  background: linear-gradient(135deg, var(--bh-cyan), var(--bh-magenta));
+  background: linear-gradient(135deg, var(--bh-cyan) 0%, var(--bh-magenta) 100%);
   box-shadow:
-    0 0 0 3px var(--bh-cyan),
-    0 5px 0 var(--bh-outline);
+    inset 0 2px 0 rgba(255, 255, 255, 0.45),
+    0 0 0 3px var(--bh-gold),
+    0 5px 0 var(--bh-outline),
+    0 0 22px var(--bh-cyan-glow);
+}
+
+.bh-nav-btn--active::before {
+  opacity: 1;
+  background: var(--bh-gold);
 }
 
 .bh-nav-btn--active > span {
@@ -173,7 +288,9 @@
   text-shadow: none;
   background: linear-gradient(180deg, var(--bh-orange-hi), var(--bh-orange-lo));
   border: var(--bh-stroke-sm) solid var(--bh-outline);
-  box-shadow: var(--bh-shadow-btn);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    var(--bh-shadow-btn);
 }
 
 .bh-ribbon--green {
@@ -183,20 +300,24 @@
 /* CTA jaune (PLAY NOW) */
 .bh-btn--gold {
   color: var(--bh-ink);
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.4);
-  background: linear-gradient(180deg, var(--bh-gold-hi), var(--bh-gold));
-  background-image: linear-gradient(180deg, var(--bh-gold-hi), var(--bh-gold));
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.45);
+  background-color: var(--bh-gold);
+  background-image: linear-gradient(180deg, var(--bh-gold-hi) 0%, var(--bh-gold) 55%, var(--bh-gold-dark) 100%);
   border: var(--bh-stroke-sm) solid var(--bh-outline);
-  box-shadow: 0 5px 0 var(--bh-gold-shadow), var(--bh-shadow-btn);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -3px 0 rgba(138, 98, 0, 0.5),
+    0 5px 0 var(--bh-gold-shadow);
 }
 
 .bh-btn--gold:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.07);
 }
 
 .bh-btn--ghost {
   color: var(--bh-white);
   background: rgba(15, 74, 86, 0.9);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent);
 }
 
 /* Titres */
@@ -207,22 +328,26 @@
   font-weight: 400;
   line-height: 0.95;
   text-transform: uppercase;
-  background: linear-gradient(180deg, var(--bh-gold-hi) 0%, var(--bh-gold) 45%, var(--bh-orange) 100%);
+  background: linear-gradient(180deg, var(--bh-gold-hi) 0%, var(--bh-gold) 42%, var(--bh-orange) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-stroke: 3px var(--bh-outline);
   paint-order: stroke fill;
-  filter: drop-shadow(3px 4px 0 var(--bh-outline));
+  filter:
+    drop-shadow(0 2px 0 var(--bh-orange-shadow))
+    drop-shadow(3px 5px 0 var(--bh-outline));
 }
 
 .bh-title--logo {
-  font-size: clamp(1.75rem, 4.5vw, 2.85rem);
-  letter-spacing: 0.02em;
+  position: relative;
+  font-size: clamp(1.75rem, 4.5vw, 2.95rem);
+  letter-spacing: 0.01em;
+  transform: skewX(-6deg);
 }
 
 .bh-title--logo .bh-title__red {
-  background: linear-gradient(180deg, #ff6b4a, #ff3b30);
+  background: linear-gradient(180deg, #ff7a4a 0%, #ff3b30 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -241,45 +366,81 @@
 .bh-page-title {
   margin: 0 0 1rem;
   font-family: var(--bh-font-menu);
-  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
   font-weight: 700;
+  font-style: italic;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-align: center;
   color: var(--bh-white);
-  text-shadow: 2px 2px 0 var(--bh-outline);
+  text-shadow:
+    0 0 18px var(--bh-cyan-glow),
+    2px 3px 0 var(--bh-outline);
   position: relative;
-  padding-bottom: 0.65rem;
+  padding-bottom: 0.7rem;
 }
 
 .bh-page-title::after {
   content: '';
   position: absolute;
-  left: 10%;
-  right: 10%;
+  left: 50%;
   bottom: 0;
-  height: 3px;
-  background: var(--bh-white);
-  box-shadow:
-    -24px 0 0 -1px var(--bh-white),
-    24px 0 0 -1px var(--bh-white);
+  width: clamp(120px, 40%, 280px);
+  height: 4px;
+  transform: translateX(-50%) skewX(-20deg);
+  background: linear-gradient(90deg, transparent, var(--bh-gold) 20%, var(--bh-gold-hi) 50%, var(--bh-gold) 80%, transparent);
+  box-shadow: 0 0 12px var(--bh-gold);
 }
 
-/* Panneaux de jeu */
+/* Panneaux de jeu — cadre Mallhalla avec coins dorés */
 .bh-frame {
+  position: relative;
   width: 100%;
   max-width: 760px;
-  padding: 1.1rem 1.2rem 1.35rem;
-  background: var(--bh-bg-panel);
+  padding: 1.25rem 1.35rem 1.5rem;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(0, 229, 255, 0.1), transparent 60%),
+    var(--bh-bg-panel);
   border: var(--bh-stroke-sm) solid var(--bh-outline);
-  box-shadow: var(--bh-shadow-panel);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 229, 255, 0.18),
+    inset 0 0 36px rgba(0, 229, 255, 0.06),
+    var(--bh-shadow-panel);
   clip-path: polygon(
-    0 0,
+    14px 0,
     100% 0,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    0 100%
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    0 100%,
+    0 14px
   );
+}
+
+.bh-frame::before,
+.bh-frame::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--bh-gold);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bh-frame::before {
+  top: 8px;
+  right: 8px;
+  border-left: none;
+  border-bottom: none;
+  filter: drop-shadow(0 0 4px var(--bh-gold));
+}
+
+.bh-frame::after {
+  bottom: 8px;
+  left: 8px;
+  border-right: none;
+  border-top: none;
+  filter: drop-shadow(0 0 4px var(--bh-gold));
 }
 
 .bh-placeholder {
@@ -297,4 +458,14 @@
   margin-top: 0.75rem !important;
   font-size: 0.9rem !important;
   color: var(--bh-text-muted) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

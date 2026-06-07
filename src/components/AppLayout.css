@@ -1,15 +1,65 @@
-/* Shell global — DA Brawlhalla (Mallhalla + Matchs Amicaux) */
+/* Shell global — DA Brawlhalla (ciel Valhalla + menu Mallhalla) */
 
 .bh-app {
   position: relative;
   min-height: 100svh;
   overflow-x: hidden;
-  background: linear-gradient(
-    160deg,
-    var(--bh-bg-mid) 0%,
-    var(--bh-bg-deep) 45%,
-    #061a52 100%
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--bh-bg-sky) 0%, var(--bh-bg-mid) 32%, var(--bh-bg-deep) 70%),
+    linear-gradient(180deg, #0a2570 0%, #041236 100%);
+}
+
+/* Voile sombre + vignette pour la profondeur */
+.bh-app__sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 55% at 50% 0%, rgba(0, 229, 255, 0.18), transparent 70%),
+    radial-gradient(60% 50% at 12% 100%, rgba(224, 64, 255, 0.16), transparent 70%),
+    radial-gradient(60% 50% at 88% 95%, rgba(0, 229, 255, 0.14), transparent 70%);
+}
+
+.bh-app__sky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(130% 100% at 50% 35%, transparent 55%, rgba(2, 8, 28, 0.65) 100%);
+}
+
+/* Rayons de lumière (sunburst) derrière le contenu */
+.bh-app__rays {
+  position: fixed;
+  top: -28vh;
+  left: 50%;
+  z-index: 0;
+  width: 150vw;
+  height: 120vh;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0.5;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 0%,
+    rgba(255, 255, 255, 0.09) 0deg,
+    rgba(255, 255, 255, 0.09) 4deg,
+    transparent 4deg,
+    transparent 13deg
   );
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(70% 70% at 50% 0%, #000 0%, transparent 72%);
+  animation: bh-spin-slow 240s linear infinite;
+}
+
+/* Grain fin pour la texture */
+.bh-app__grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .bh-app__watermark {
@@ -24,7 +74,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.06);
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.05);
   transform: translate(-50%, -50%) rotate(-4deg);
   pointer-events: none;
   user-select: none;
@@ -33,30 +83,32 @@
 
 .bh-app__lightning {
   position: fixed;
-  z-index: 0;
-  width: min(42vw, 320px);
-  height: min(32vw, 240px);
-  opacity: 0.92;
+  z-index: 1;
+  width: min(40vw, 300px);
+  height: min(30vw, 220px);
   pointer-events: none;
   background: var(--bh-lightning);
   background-size: contain;
   background-repeat: no-repeat;
-  filter: drop-shadow(0 0 12px rgba(255, 45, 138, 0.35));
+  filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.6));
+  animation: bh-flicker 7s ease-in-out infinite;
 }
 
 .bh-app__lightning--tl {
   top: 4.5rem;
-  left: -4%;
+  left: -5%;
   transform: rotate(-8deg) scaleX(-1);
 }
 
 .bh-app__lightning--br {
-  right: -3%;
+  right: -4%;
   bottom: 2rem;
   transform: rotate(12deg);
+  filter: drop-shadow(0 0 14px rgba(224, 64, 255, 0.55));
+  animation-delay: 2.6s;
 }
 
-/* En-tête — barre profil inclinée */
+/* En-tête */
 .bh-app__header {
   position: relative;
   z-index: 10;
@@ -64,65 +116,65 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.65rem 1rem 0.5rem;
+  padding: 0.85rem 1.1rem 0.6rem;
   flex-wrap: wrap;
 }
 
 .bh-app__logo {
   text-decoration: none;
-  filter: drop-shadow(0 0 18px var(--bh-cyan-glow));
+  filter: drop-shadow(0 0 20px var(--bh-cyan-glow));
+  transition: transform 0.15s ease;
 }
 
-.bh-app__status-bar {
-  display: flex;
+.bh-app__logo:hover {
+  transform: scale(1.02);
+}
+
+/* Badge "Défi du jour" à droite — façon bandeau de monnaie du jeu */
+.bh-app__daily {
+  display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.4rem 0.85rem 0.4rem 0.4rem;
-  background: rgba(8, 18, 48, 0.88);
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.7rem;
+  background: linear-gradient(180deg, var(--bh-bg-panel-hi), var(--bh-bg-panel));
   border: var(--bh-stroke-sm) solid var(--bh-outline);
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.6);
-  transform: skewX(-8deg);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 229, 255, 0.25),
+    var(--bh-shadow-btn);
+  transform: skewX(var(--bh-skew));
 }
 
-.bh-app__avatar,
-.bh-app__status-text {
-  transform: skewX(8deg);
+.bh-app__daily > * {
+  transform: skewX(calc(var(--bh-skew) * -1));
 }
 
-.bh-app__avatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  font-family: var(--bh-font-display);
-  font-size: 0.8rem;
-  color: var(--bh-ink);
-  background: linear-gradient(180deg, var(--bh-gold-hi), var(--bh-gold));
-  border: 2px solid var(--bh-outline);
+.bh-app__daily-icon {
+  font-size: 1.25rem;
+  filter: drop-shadow(0 0 6px var(--bh-gold));
+  animation: bh-glow-pulse 3.5s ease-in-out infinite;
 }
 
-.bh-app__status-text {
+.bh-app__daily-text {
   display: flex;
   flex-direction: column;
-  gap: 0.05rem;
-  min-width: 0;
+  line-height: 1.05;
 }
 
-.bh-app__username {
+.bh-app__daily-label {
   font-family: var(--bh-font-menu);
-  font-size: 0.9rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  color: var(--bh-white);
-  text-shadow: 1px 1px 0 var(--bh-outline);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bh-text-muted);
 }
 
-.bh-app__level {
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: var(--bh-text-muted);
-  line-height: 1.25;
-  max-width: 16rem;
+.bh-app__daily-date {
+  font-family: var(--bh-font-menu);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--bh-gold-hi);
+  text-shadow: 1px 1px 0 var(--bh-outline);
 }
 
 /* Grille principale */
@@ -130,32 +182,29 @@
   position: relative;
   z-index: 5;
   display: grid;
-  grid-template-columns: minmax(168px, 200px) 1fr minmax(180px, 220px);
-  gap: 0.85rem;
+  grid-template-columns: minmax(176px, 210px) 1fr;
+  gap: 1rem;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 0.85rem 1.75rem;
+  padding: 0.5rem 1rem 2rem;
   min-height: calc(100svh - 5.5rem);
-}
-
-.bh-app__body--home {
-  grid-template-columns: minmax(168px, 200px) 1fr;
 }
 
 .bh-app__sidebar {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
   padding-top: 0.25rem;
 }
 
 .bh-app__sidebar-label {
   display: block;
   width: 100%;
-  padding: 0.4rem 0.65rem;
+  padding: 0.45rem 0.65rem;
   font-family: var(--bh-font-menu);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   text-align: center;
   transform: skewX(var(--bh-skew));
@@ -164,7 +213,7 @@
 .bh-app__nav {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
 .bh-app__main {
@@ -173,63 +222,17 @@
   align-items: stretch;
   min-width: 0;
   padding-top: 0.25rem;
+  animation: bh-rise 0.4s ease both;
 }
 
-.bh-app__body--home .bh-app__main {
+.bh-app__main--home {
   justify-content: center;
 }
 
-.bh-app__info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-top: 0.25rem;
-}
-
-.bh-app__info-ribbon {
-  display: block;
-  width: 100%;
-  padding: 0.45rem 0.55rem;
-  font-family: var(--bh-font-menu);
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  text-align: center;
-  letter-spacing: 0.04em;
-  transform: skewX(var(--bh-skew));
-}
-
-.bh-app__info-text {
-  margin: 0;
-  padding: 0.65rem 0.75rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1.35;
-  text-align: center;
-  color: var(--bh-text);
-  background: rgba(0, 0, 0, 0.35);
-  border: var(--bh-stroke-sm) solid var(--bh-outline);
-  text-shadow: 1px 1px 0 var(--bh-outline);
-}
-
-.bh-app__info .api-banner {
-  margin: 0;
-  border-radius: 0;
-  border: var(--bh-stroke-sm) solid var(--bh-outline);
-  background: rgba(6, 22, 72, 0.95);
-  color: var(--bh-text-muted);
-  font-size: 0.65rem;
-}
-
-.bh-app__info .api-banner strong {
-  color: var(--bh-cyan);
-}
-
 @media (max-width: 960px) {
-  .bh-app__body,
-  .bh-app__body--home {
+  .bh-app__body {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr;
   }
 
   .bh-app__sidebar {
@@ -262,11 +265,13 @@
     order: 2;
   }
 
-  .bh-app__info {
-    order: 3;
-  }
-
   .bh-app__lightning {
-    opacity: 0.5;
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 560px) {
+  .bh-app__daily {
+    display: none;
   }
 }
