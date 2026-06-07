@@ -147,6 +147,7 @@ export function BrawldokuModeCore({
             onSubmit={handleSearchSubmit}
             excludedLegendIds={excludedLegendIds}
             disabled={completed || !activeCell}
+            showWeapons={false}
             placeholder={
               activeCell ? 'Rechercher une légende…' : 'Choisis une case…'
             }

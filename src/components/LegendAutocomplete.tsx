@@ -16,6 +16,8 @@ type LegendAutocompleteProps = {
   excludedLegendIds?: readonly number[]
   disabled?: boolean
   placeholder?: string
+  /** Afficher les armes dans les suggestions (désactivé en Brawldoku) */
+  showWeapons?: boolean
 }
 
 const MAX_SUGGESTIONS = 8
@@ -34,6 +36,7 @@ export function LegendAutocomplete({
   excludedLegendIds = [],
   disabled,
   placeholder = 'Nom de la légende…',
+  showWeapons = true,
 }: LegendAutocompleteProps) {
   const listId = useId()
   const [open, setOpen] = useState(false)
@@ -151,9 +154,11 @@ export function LegendAutocomplete({
               />
               <span className="legend-ac__option-text">
                 <span className="legend-ac__name">{legend.bio_name}</span>
-                <span className="legend-ac__weapons legend-ac__weapons-row">
-                  <WeaponKit legend={legend} size="sm" />
-                </span>
+                {showWeapons && (
+                  <span className="legend-ac__weapons legend-ac__weapons-row">
+                    <WeaponKit legend={legend} size="sm" />
+                  </span>
+                )}
               </span>
             </span>
           </button>
